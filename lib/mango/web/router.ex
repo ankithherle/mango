@@ -15,6 +15,10 @@ defmodule Mango.Web.Router do
     plug Mango.Web.Plugs.Locale
   end
 
+  pipeline :admin do
+    plug Mango.Web.Plugs.AdminLayout
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -47,7 +51,7 @@ defmodule Mango.Web.Router do
   end
 
   scope "/admin", Mango.Web.Admin, as: :admin do
-    pipe_through [:browser, :frontend]
+    pipe_through [:browser, :admin]
 
     resources "/users", UserController
   end
