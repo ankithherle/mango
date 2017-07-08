@@ -41,6 +41,7 @@ defmodule Mango.Web.Router do
     # Add all routes that require authentication
     get "/logout", SessionController, :delete
     get "/checkout", CheckoutController, :edit
+    put "/checkout/confirm", CheckoutController, :update
   end
 
 end
