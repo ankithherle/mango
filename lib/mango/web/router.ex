@@ -7,6 +7,9 @@ defmodule Mango.Web.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+  end
+
+  pipeline :frontend  do
     plug Mango.Web.Plugs.LoadCustomer
     plug Mango.Web.Plugs.FetchCart
   end
@@ -16,20 +19,28 @@ defmodule Mango.Web.Router do
   end
 
   scope "/", Mango.Web do
-    pipe_through :browser
+    pipe_through [:browser, :frontend]
+
+    # Add all routes that don't require authentication
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    get "/register", RegistrationController, :new
+    post "/register", RegistrationController, :create
 
     get "/", PageController, :index
     get "/categories/:name", CategoryController, :show
 
-    get "/register", RegistrationController, :new
-    post "/register", RegistrationController, :create
-
-    get "/login", SessionController, :new
-    post "/login", SessionController, :create
-    get "/logout", SessionController, :delete
-
-    post "/cart", CartController, :add
     get "/cart", CartController, :show
+    post "/cart", CartController, :add
     put "/cart", CartController, :update
   end
+
+  scope "/", Mango.Web do
+    pipe_through [:browser, :frontend, Mango.Web.Plugs.AuthenticateCustomer]
+
+    # Add all routes that require authentication
+    get "/logout", SessionController, :delete
+    get "/checkout", CheckoutController, :edit
+  end
+
 end
