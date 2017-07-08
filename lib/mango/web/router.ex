@@ -8,6 +8,7 @@ defmodule Mango.Web.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug Mango.Web.Plugs.LoadCustomer
+    plug Mango.Web.Plugs.FetchCart
   end
 
   pipeline :api do
@@ -26,5 +27,7 @@ defmodule Mango.Web.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     get "/logout", SessionController, :delete
+
+    post "/cart", CartController, :add
   end
 end
