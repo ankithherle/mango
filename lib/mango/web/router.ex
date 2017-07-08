@@ -21,5 +21,8 @@ defmodule Mango.Web.Router do
 
     get "/register", RegistrationController, :new
     post "/register", RegistrationController, :create
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
   end
 end
