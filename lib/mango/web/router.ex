@@ -65,6 +65,7 @@ defmodule Mango.Web.Router do
 
     # Add all routes that require admin authentication
     resources "/users", UserController
+    get "/logout", SessionController, :delete
   end
 
 end
