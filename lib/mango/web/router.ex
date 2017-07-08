@@ -46,4 +46,10 @@ defmodule Mango.Web.Router do
     resources "/tickets", TicketController, except: [:edit, :update, :delete]
   end
 
+  scope "/admin", Mango.Web.Admin, as: :admin do
+    pipe_through [:browser, :frontend]
+
+    resources "/users", UserController
+  end
+
 end
