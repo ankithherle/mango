@@ -30,5 +30,6 @@ defmodule Mango.Web.Router do
 
     post "/cart", CartController, :add
     get "/cart", CartController, :show
+    put "/cart", CartController, :update
   end
 end
