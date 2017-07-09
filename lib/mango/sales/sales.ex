@@ -54,4 +54,6 @@ defmodule Mango.Sales do
 
   def get_order!(id), do: Repo.get!(Order, id)
 
+  def get_order(id), do: Repo.get(Order, id)
+
 end
