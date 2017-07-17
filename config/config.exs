@@ -9,6 +9,10 @@ use Mix.Config
 config :mango,
   ecto_repos: [Mango.Repo]
 
+config :mango, Mango.Web.Gettext,
+  default_locale: "fr"
+
+
 # Configures the endpoint
 config :mango, Mango.Web.Endpoint,
   url: [host: "localhost"],
