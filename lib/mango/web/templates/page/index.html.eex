@@ -2,7 +2,7 @@
 <div class="row">
   <%= for product <- @seasonal_products do %>
     <div class="col-lg-3 col-sm-4 col-md-4">
-      <%= render Mango.Web.ProductView, "product_card.html", product: product %>
+      <%= render Mango.Web.ProductView, "product_card.html", conn: @conn, product: product %>
     </div>
   <% end %>
 </div>
