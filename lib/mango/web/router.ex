@@ -7,6 +7,7 @@ defmodule Mango.Web.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Mango.Web.Plugs.LoadCustomer
   end
 
   pipeline :api do
@@ -14,14 +15,16 @@ defmodule Mango.Web.Router do
   end
 
   scope "/", Mango.Web do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
     get "/categories/:name", CategoryController, :show
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", Mango.Web do
-  #   pipe_through :api
-  # end
+    get "/register", RegistrationController, :new
+    post "/register", RegistrationController, :create
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    get "/logout", SessionController, :delete
+  end
 end
