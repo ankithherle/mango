@@ -31,3 +31,6 @@ mix phx.server
 ```
 
 Now visit http://localhost:4000 to see the site.
+
+END OF README.MD
+
